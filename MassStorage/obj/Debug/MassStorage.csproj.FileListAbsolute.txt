@@ -1,0 +1,14 @@
+C:\Users\BaSys\source\repos\MassStorage\bin\Debug\MassStorage.exe.config
+C:\Users\BaSys\source\repos\MassStorage\bin\Debug\MassStorage.exe
+C:\Users\BaSys\source\repos\MassStorage\bin\Debug\MassStorage.pdb
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.csprojAssemblyReference.cache
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MainWindow.g.cs
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\App.g.cs
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage_MarkupCompile.cache
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage_MarkupCompile.lref
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MainWindow.baml
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.g.resources
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.Properties.Resources.resources
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.csproj.GenerateResource.cache
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.exe
+C:\Users\BaSys\source\repos\MassStorage\obj\Debug\MassStorage.pdb
