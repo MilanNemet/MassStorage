@@ -34,7 +34,7 @@
 
         <!-- - - - -  MAIN FRAME  - - - - -->
         
-        <!--Col=1-->
+        <!-- Col=1 -->
         <StackPanel Grid.Column="0">
             <StackPanel>
                 <Grid>
@@ -56,7 +56,7 @@
                     Height="100"
                     ItemsSource="{Binding}"
                     IsSynchronizedWithCurrentItem="True"
-                    SelectedIndex="0">
+                    SelectedIndex="0" SelectionChanged="SuitSelection">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -88,27 +88,43 @@
 
                     <TextBlock Grid.Row="1">Foglalt. kapacitás:</TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" 
-                               Text="{Binding FoglaltKapacitás}" 
+                               Text="{Binding FoglaltKapacitás, UpdateSourceTrigger=PropertyChanged}" 
                                HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="1"  Grid.Column="2" Text=" kB"/>
 
                     <TextBlock Grid.Row="2">Szabad kapacitás:</TextBlock>
                     <TextBlock Grid.Row="2" Grid.Column="1" 
-                               Text="{Binding SzabadKapacitás}" 
+                               Text="{Binding SzabadKapacitás, UpdateSourceTrigger=PropertyChanged}" 
                                HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="2" Grid.Column="2" Text=" kB"/>
                 </Grid>
 
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="BTN_Format" Click="FormatStorage">Formázás</Button>
                 <Button x:Name="BTN_NewFloppy" Click="CreateNewFloppy">Floppy</Button>
                 <Button x:Name="BTN_NewDVD_R" Click="CreateNewDVD_R">DVD</Button>
             </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Right">
+                <CheckBox 
+                    x:Name="ChBox_Floppy" 
+                    Visibility="Collapsed" FlowDirection="RightToLeft"
+                    IsChecked="{Binding Path=/Irásvédett, Mode=TwoWay}" Checked="LockButtons" Unchecked="UnlockButtons">
+                    :Írásvédett
+                </CheckBox>
+
+                <CheckBox 
+                    x:Name="ChBox_DVD_R" 
+                    Visibility="Collapsed" FlowDirection="RightToLeft"
+                    Checked="LockButtons">
+                    :Zárolás
+                </CheckBox>
+            </StackPanel>
         </StackPanel>
-        
-        <!--Col=2-->
+
+        <!-- Col=2 -->
         <StackPanel Grid.Column="1">
             <TextBlock>Fájlok:</TextBlock>
             <TextBlock HorizontalAlignment="Right">Fájlnév:</TextBlock>
@@ -125,32 +141,47 @@
                             <TextBlock Text="{Binding Nev}"/>
                             <TextBlock Text=" ("/>
                             <TextBlock Text="{Binding Meret}"/>
-                            <TextBlock Text=")"/>
+                            <TextBlock Text="kB)"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CsakOlvashato}" Value="True">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rendszer}" Value="True">
+                                <Setter Property="Background" Value="LightPink"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rejtett}" Value="True">
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
             </ListBox>
             <StackPanel>
+                
                 <CheckBox 
-                    IsChecked=
-                    "{Binding FileLista[LBox_Files.SelectedIndex].CsakOlvashato,
-                    UpdateSourceTrigger=PropertyChanged,
-                    Mode=TwoWay
-                    }">
+                    IsChecked="{Binding Path=FileLista/CsakOlvashato, Mode=TwoWay}">
                     Csak olvasható
                 </CheckBox>
+                
                 <CheckBox
-                    IsChecked="{Binding FileLista[LBox_Files.SelectedIndex].Rendszer}">
+                    IsChecked="{Binding Path=FileLista/Rendszer, Mode=TwoWay}">
                     Rendszer
                 </CheckBox>
+                
                 <CheckBox
-                    IsChecked="{Binding FileLista[LBox_Files.SelectedIndex].Rejtett}">
+                    IsChecked="{Binding Path=FileLista/Rejtett, Mode=TwoWay}">
                     Rejtett
                 </CheckBox>
+                
             </StackPanel>
         </StackPanel>
         
-        <!--Col=3-->
+        <!-- Col=3 -->
         <StackPanel Grid.Column="2">
             <TextBlock><!--üres--></TextBlock>
             <TextBox x:Name="TBox_FileName"/>
@@ -171,9 +202,9 @@
                     <TextBlock Grid.Row="1">Fájlnév:</TextBlock>
                     <TextBox x:Name="TBox_SearchName" Grid.Row="1" Grid.Column="1"/>
                 </Grid>
-                <Button x:Name="BTN_SearchFile" Click="SearchFile">Keres</Button>
+                <Button x:Name="BTN_SearchFile" Click="SearchFile" MouseLeave="ResetBox">Keres</Button>
             </StackPanel>
-            <TextBlock x:Name="TB_SearchResult"/>
+            <TextBlock x:Name="TB_ActionResult"/>
         </StackPanel>
     </Grid>
 </Window>
